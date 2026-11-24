@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>旅行人格小遊戲｜玩竹一下</title>
+  <meta name="description" content="五題二選一，憑直覺選出你的新竹旅行人格：山海療癒派、巷弄尋味派或行動探險派。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261105b">
+  <link rel="stylesheet" href="css/pages.css?v=20261105b">
+</head>
+<body data-page="quiz">
+<div class="quiz-bar"><div class="wrap"><span>旅行人格小遊戲 ／ 把直覺帶上</span><span>新竹怎麼玩？玩竹一下就知道！</span></div></div>
+<main class="wrap">
+
+  <!-- 開始 -->
+  <section class="qv on" id="vStart" aria-labelledby="startTitle">
+    <div class="start">
+      <div>
+        <span class="pill r">五題直覺・一種玩法</span>
+        <h1 id="startTitle">玩竹一下，<br>選出你的旅行人格！</h1>
+        <p class="big">山裡還是海邊？老街還是咖啡店？憑直覺選，玩出你的新竹風格！</p>
+        <p class="note" style="font-size:15px">不用做功課，也不用想太久。五題、每題兩張旅行提案，選最讓你心動的那一張，看看今天的你適合怎麼玩新竹。</p>
+        <div class="pills"><span class="pill soft-b">五題二選一</span><span class="pill soft-g">沒有標準答案</span><span class="pill soft-y">三種旅行人格</span></div>
+        <button class="btn primary" type="button" id="go" style="min-width:240px">開始玩一下</button>
+        <p class="note" style="margin-top:14px">讓直覺帶路，下一站說不定剛好很像你。</p>
+      </div>
+      <div class="start-photos" aria-hidden="true">
+        <figure class="polaroid tape start-p1"><img src="img/quiz-start.jpg" alt=""><figcaption>我的旅行，從喜歡開始。 ↗</figcaption></figure>
+        <figure class="polaroid start-p2"><img src="img/quiz-start-2.jpg" alt=""><figcaption>把日常玩成小旅行。</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 題目 -->
+  <section class="qv" id="vQ" aria-live="polite">
+    <div class="q-head"><span class="q-no" id="qNo">01 / 05</span><div class="steps" id="steps"></div><span class="pill soft-b q-tag" id="qTag"></span></div>
+    <h1 class="q-title" id="qTitle" tabindex="-1"></h1>
+    <p class="note" style="font-size:15px;margin:0 0 24px">兩張旅行提案，哪一張讓你想立刻出發？選最像今天的你。</p>
+    <div class="choice-row" id="choices" role="radiogroup"></div>
+    <p class="note" id="qHint" style="margin-top:14px">○ 點選一張圖片卡，留下你的旅行直覺　・　鍵盤可按 A／B 選擇</p>
+    <div class="q-nav">
+      <button class="btn" type="button" id="prev">← 上一步</button>
+      <p class="note" id="left" style="font-weight:700;color:var(--ink)"></p>
+      <button class="btn primary" type="button" id="next" disabled>下一題 →</button>
+    </div>
+  </section>
+
+  <!-- 結果 -->
+  <section class="qv" id="vRes">
+    <div class="res">
+      <div>
+        <span class="pill r">五題完成・旅行人格</span>
+        <h1 style="font-size:28px;margin:18px 0 8px" tabindex="-1" id="resTop">你的玩竹人格出爐啦！</h1>
+        <p class="res-name" id="rName"></p>
+        <p class="res-line" id="rLine"></p>
+        <p class="note" style="font-size:16px" id="rDesc"></p>
+        <div class="pills" id="rTags" style="margin:14px 0"></div>
+        <div class="score" id="score" aria-label="三種人格分數"></div>
+      </div>
+      <div class="res-photos" aria-hidden="true">
+        <figure class="polaroid tape res-p1"><img id="rImg" src="" alt=""><figcaption id="rCap"></figcaption></figure>
+        <figure class="polaroid res-p2"><img id="rImg2" src="" alt=""></figure>
+      </div>
+    </div>
+    <h2 style="font-size:24px;font-weight:900;margin:48px 0 0">把這幾站，貼進你的下一趟旅行。 ↓</h2>
+    <div class="recs" id="recs"></div>
+    <div class="res-act">
+      <a class="btn primary" id="goTrip" href="trips.html">照著玩，出發去！</a>
+      <button class="btn" type="button" id="again">再玩一次</button>
+      <button class="btn" type="button" id="share">分享結果</button>
+      <span class="note">旅行靈感提案，不是固定行程；用自己的步調玩。</span>
+    </div>
+  </section>
+</main>
+<script src="js/data.js?v=20261105a"></script>
+<script src="js/app.js?v=20261105a"></script>
+<script src="js/quiz.js?v=20261105b"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>我的旅程｜玩竹一下</title>
+  <meta name="description" content="我的收藏、我的測驗結果、我的行程與旅遊貼紙簿。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261105b">
+  <link rel="stylesheet" href="css/pages.css?v=20261105b">
+</head>
+<body data-page="mytrip">
+<main>
+  <section class="ph-head">
+    <div class="wrap">
+      <p class="eyebrow">MY TRIP ／ 我的旅程</p>
+      <h1>把喜歡的新竹，收進口袋</h1>
+      <p>收藏、測驗結果、行程打卡都存在這台裝置的瀏覽器裡，不需要登入。</p>
+    </div>
+  </section>
+  <div class="wrap" style="padding-bottom:80px">
+    <section class="mt-sec"><h2>我的測驗結果</h2><div id="res"></div></section>
+    <section class="mt-sec"><h2>旅遊貼紙簿 <span class="pill y" id="stickCount"></span></h2>
+      <p class="note" style="margin-top:-8px">收藏景點或在主題行程打卡，就能解鎖貼紙。點貼紙看介紹。</p><div class="stickers" id="stickers"></div></section>
+    <section class="mt-sec"><h2>我的收藏 <span class="pill r" id="favCount"></span></h2><div class="explore-grid" id="favs"></div></section>
+    <section class="mt-sec"><h2>我的行程</h2><div class="trip-list" id="trips"></div></section>
+    <p style="margin-top:32px"><button class="btn sm" type="button" id="clear">清除這台裝置的旅程資料</button></p>
+  </div>
+</main>
+<script src="js/data.js?v=20261105a"></script>
+<script src="js/app.js?v=20261105a"></script>
+<script>
+/* 我的旅程：讀取 localStorage 的收藏、測驗、行程、打卡紀錄 */
+(function () {
+  const $ = s => document.querySelector(s), IMG = WZ.IMG, S = WZ.state;
+  function render() {
+    const r = S.result && WZ.TYPES[S.result.key];
+    $('#res').innerHTML = r ? `<div class="mt-result"><img src="${IMG(r.img)}" alt="${r.name}插畫"><div><p class="res-name" style="font-size:36px">${r.name}</p><p class="res-line" style="font-size:18px">${r.line}</p>
+        <p style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn sm primary" href="quiz.html">再測一次</a>${r.recs.map(id => `<button class="btn sm" type="button" data-open-spot="${id}">${WZ.spot(id).name}</button>`).join('')}</p></div></div>`
+      : `<div class="empty"><p><b>還沒測過旅行人格。</b>五題二選一，一分鐘就好。</p><a class="btn primary sm" href="quiz.html">開始玩一下</a></div>`;
+
+    const doneSpots = S.done.map(k => k.split(':')[1]);
+    const un = WZ.SPOTS.filter(s => S.favs.includes(s.id) || doneSpots.includes(s.id)).map(s => s.id);
+    $('#stickCount').textContent = `已解鎖 ${un.length} / ${WZ.SPOTS.length}`;
+    $('#stickers').innerHTML = WZ.SPOTS.map(s => { const ok = un.includes(s.id); return `<button type="button" class="sticker ${ok ? '' : 'lock'}" data-open-spot="${s.id}" aria-label="${s.name}${ok ? '（已解鎖）' : '（未解鎖）'}"><span class="s"><img src="${IMG(s.img)}" alt=""></span>${ok ? s.name : '？？？'}</button>`; }).join('');
+
+    $('#favCount').textContent = S.favs.length + ' 個';
+    $('#favs').innerHTML = S.favs.length ? S.favs.map(WZ.spot).filter(Boolean).map(s => `<article class="card"><a class="cover" href="#" data-open-spot="${s.id}" aria-label="看${s.name}介紹"></a>${WZ.favBtn(s.id)}
+        <div class="ph"><img src="${IMG(s.img)}" alt="${s.name}"></div><p class="meta">${WZ.ICON.pin}${s.area}</p><h3 style="font-size:20px">${s.name}</h3></article>`).join('')
+      : `<div class="empty"><p><b>還沒有收藏。</b>在景點卡片按 ♡ 就會出現在這裡。</p><a class="btn sm" href="explore.html">去探索景點</a></div>`;
+
+    $('#trips').innerHTML = S.trips.length ? S.trips.map(id => { const t = WZ.TRIPS.find(x => x.id === id); const n = t.stops.filter(s => S.done.includes(t.id + ':' + s.spot)).length;
+      return `<div class="trip-row"><span><b>${t.name}</b>　<small class="note">${t.kind}・完成 ${n}/${t.stops.length} 站</small></span><a class="btn sm" href="trips.html#${t.id}">繼續這趟 →</a></div>`; }).join('')
+      : `<div class="empty"><p><b>還沒加入行程。</b></p><a class="btn sm" href="trips.html">看看主題行程</a></div>`;
+  }
+  document.addEventListener('wz:fav', render);
+  $('#clear').addEventListener('click', () => { if (!confirm('確定清除收藏、測驗結果與打卡紀錄？')) return; S.favs = []; S.result = null; S.trips = []; S.done = []; WZ.save(); render(); WZ.toast('已清除'); });
+  render();
+})();
+</script>
+</body>
+</html>

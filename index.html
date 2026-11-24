@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>玩竹一下｜新竹新世代互動旅遊入口網</title>
+  <meta name="description" content="鑽進老街、奔向山海，找到你的新竹旅行靈感。旅行人格測驗、景點探索、在地美食與主題行程。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261105b">
+  <link rel="stylesheet" href="css/pages.css?v=20261105b">
+</head>
+<body data-page="home">
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-txt">
+        <span class="pill y">把好奇心帶上・新竹出發</span>
+        <h1>今天想怎麼玩？<br>玩竹一下就出發！</h1>
+        <p class="hero-sub">鑽進老街、奔向山海，找到你的新竹旅行靈感。</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="explore.html">開始探索 <span aria-hidden="true">↗</span></a>
+          <a class="link-arrow" href="quiz.html">先測測我的旅行人格 →</a>
+        </div>
+        <p class="note">新竹怎麼玩？玩竹一下就知道！</p>
+      </div>
+      <div class="hero-photos" aria-hidden="true">
+        <span class="hero-blob"></span>
+        <figure class="polaroid tape hero-p1"><img src="img/hero-station.jpg" alt=""><figcaption>第一站，交給好奇心。 ↗</figcaption></figure>
+        <figure class="polaroid hero-p2"><img src="img/hero-mushroom.jpg" alt=""><figcaption>轉個彎，又是新發現。</figcaption></figure>
+        <svg class="hero-dash" viewBox="0 0 200 80"><path d="M5 70 C 30 0, 70 10, 100 50 S 170 70, 190 5" fill="none" stroke="#e5533d" stroke-width="3" stroke-dasharray="7 7"/></svg>
+        <span class="hero-mark">◎ 新竹・下一個驚喜</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 測驗預覽：首頁就能先玩第一題 -->
+  <section class="sec pink" id="quiz-teaser">
+    <div class="wrap teaser">
+      <div class="teaser-intro reveal">
+        <p class="eyebrow">01 ／ 玩竹靈感筆記</p>
+        <h2 class="h2">玩竹一下，選出你的旅行人格！</h2>
+        <p>山裡還是海邊？老街還是咖啡店？憑直覺選，玩出你的新竹風格！</p>
+        <span class="pill y">五題小遊戲・沒有標準答案</span>
+        <p><a class="btn primary" href="quiz.html">開始玩一下 ↗</a></p>
+        <p class="note">這裡先看玩法，完整測驗從「開始玩一下」出發。</p>
+      </div>
+      <div class="teaser-q reveal">
+        <div class="teaser-top"><b class="teaser-no">01 / 05</b>
+          <div class="progress"><span>1 / 5 站・20% 探索進度</span><i><b style="width:20%"></b></i></div></div>
+        <h3>今天，你想把自己放在哪裡？</h3>
+        <div class="choice-row" role="radiogroup" aria-label="第一題選項">
+          <button class="choice" type="button" role="radio" aria-checked="false" data-v="a"><b class="ab">A</b><img src="img/q1a.jpg" alt=""><span class="ct">山裡森呼吸</span><span class="cd">走進綠意，讓腦袋慢慢放空。</span></button>
+          <button class="choice" type="button" role="radio" aria-checked="false" data-v="b"><b class="ab">B</b><img src="img/q1b.jpg" alt=""><span class="ct">海邊吹吹風</span><span class="cd">跟著海風，把煩惱吹遠一點。</span></button>
+        </div>
+        <p class="teaser-go" id="teaserGo">選一張最有感的圖片，跟著直覺往下一站。 →</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 人格預覽 -->
+  <section class="sec">
+    <div class="wrap">
+      <p class="eyebrow">02 ／ 玩竹靈感筆記</p>
+      <h2 class="h2">你的玩竹人格出爐啦！</h2>
+      <p class="lead">結果預覽｜完成測驗後顯示其中一種</p>
+      <div class="grid3 stagger" id="typeGrid"></div>
+    </div>
+  </section>
+
+  <!-- 03 分類 -->
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow">03 ／ 玩竹靈感筆記</p>
+      <h2 class="h2">今天想去哪裡晃晃？</h2>
+      <p class="lead">每一種玩法，都有不一樣的新竹。</p>
+      <div class="chips" id="catChips" role="tablist" aria-label="玩法分類"></div>
+      <div class="masonry" id="catGrid"></div>
+    </div>
+  </section>
+
+  <!-- 04 精選景點 -->
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <p class="eyebrow">04 ／ 玩竹靈感筆記</p>
+      <h2 class="h2">這些地方，值得專程來一趟</h2>
+      <div class="grid2" id="spotGrid"></div>
+      <p style="margin-top:28px"><a class="btn" href="explore.html">探索更多景點 →</a></p>
+    </div>
+  </section>
+
+  <!-- 05 美食 -->
+  <section class="sec cream">
+    <div class="wrap">
+      <p class="eyebrow">05 ／ 玩竹靈感筆記</p>
+      <h2 class="h2">來都來了，當然要吃！</h2>
+      <span class="pill y" style="margin-bottom:24px">在地經典・先吃這個</span>
+      <div class="food-grid" id="foodGrid"></div>
+    </div>
+  </section>
+
+  <!-- 06 行程 -->
+  <section class="sec">
+    <div class="wrap">
+      <p class="eyebrow">06 ／ 玩竹靈感筆記</p>
+      <h2 class="h2">幫今天的自己，安排一趟小旅行</h2>
+      <p class="lead">行程靈感・時間僅為玩法示意</p>
+      <div class="grid3 stagger" id="tripGrid"></div>
+    </div>
+  </section>
+
+  <!-- 07 故事 -->
+  <section class="sec" style="padding-top:24px">
+    <div class="wrap story">
+      <div class="story-photos" aria-hidden="true">
+        <span class="pill g story-badge">不只一種新竹</span>
+        <figure class="polaroid tape story-p1"><img src="img/story-river.jpg" alt=""></figure>
+        <figure class="polaroid story-p2"><img src="img/story-persimmon.jpg" alt=""></figure>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">07 ／ 玩竹靈感筆記</p>
+        <h2 class="h2">新竹，不只有你想像的那一面。</h2>
+        <p class="story-txt">從山林到海岸，從歷史街區到熱鬧日常，新竹的故事藏在每一次轉彎裡。走進客家聚落，嚐一口地方滋味，也看看街巷裡正在發生的生活。放慢一點，你會發現更多不一樣的新竹。</p>
+        <a class="btn" href="explore.html">發現更多新竹故事 → ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script src="js/data.js?v=20261105a"></script>
+<script src="js/app.js?v=20261105a"></script>
+<script src="js/home.js?v=20261105a"></script>
+</body>
+</html>

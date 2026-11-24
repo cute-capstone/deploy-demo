@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>景點探索｜玩竹一下</title>
+  <meta name="description" content="依山林、海線、老街、美食、親子分類探索新竹景點，可搜尋、看地圖、加入收藏。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261105b">
+  <link rel="stylesheet" href="css/pages.css?v=20261105b">
+</head>
+<body data-page="explore">
+<main>
+  <section class="ph-head">
+    <div class="wrap">
+      <p class="eyebrow">EXPLORE ／ 旅遊探索</p>
+      <h1 id="pageTitle">今天想去哪裡晃晃？</h1>
+      <p>依玩法篩選、輸入關鍵字，或切換到地圖看看哪些地方順路。按 ♡ 收藏，到「我的旅程」解鎖貼紙。</p>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:96px">
+    <div class="toolbar">
+      <label class="searchbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span class="sr">搜尋景點</span><input id="kw" type="search" placeholder="搜尋景點、美食、關鍵字"></label>
+      <div class="seg" role="group" aria-label="顯示方式"><button type="button" data-view="list" aria-pressed="true">列表</button><button type="button" data-view="map" aria-pressed="false">地圖</button></div>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="分類篩選"></div>
+    <p class="count" id="count" aria-live="polite"></p>
+
+    <div id="listView" class="explore-grid"></div>
+
+    <div id="mapView" class="map-wrap" hidden>
+      <div class="map" id="map">
+        <svg class="land" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M22 0 L100 0 L100 100 L30 100 C 24 80, 20 70, 22 55 C 24 40, 18 28, 24 15 Z" fill="#fff7ec" stroke="#1b1b1b" stroke-width=".6"/>
+          <path d="M38 34 C 46 30, 58 30, 66 36 C 70 46, 66 58, 56 62 C 46 64, 38 56, 36 46 Z" fill="#ffe1d8" stroke="#1b1b1b" stroke-width=".4" stroke-dasharray="1.5 1"/>
+          <path d="M60 70 C 70 64, 90 66, 100 72 L100 100 L68 100 C 62 90, 58 80, 60 70 Z" fill="#dff3e6"/>
+          <path d="M24 30 C 40 28, 60 22, 100 26" fill="none" stroke="#7fb6e5" stroke-width="1.6"/>
+          <text x="44" y="49" font-size="3.4" font-weight="700" fill="#e5533d">新竹市區</text>
+          <text x="74" y="94" font-size="3" fill="#17b26a">山區</text>
+          <text x="6" y="50" font-size="3" fill="#3d7bf5">台灣海峽</text>
+          <text x="66" y="23" font-size="2.6" fill="#3d7bf5">頭前溪</text>
+        </svg>
+        <div id="pins"></div>
+        <div class="map-legend" aria-hidden="true"><span><b style="background:var(--green)"></b>山林</span><span><b style="background:var(--blue)"></b>海線</span><span><b style="background:var(--coral)"></b>老街</span><span><b style="background:var(--yellow)"></b>美食</span><span><b style="background:#b98cff"></b>親子</span></div>
+      </div>
+      <div>
+        <p class="note">示意地圖：位置為相對方位，不是真實比例。點地標或清單可看介紹。</p>
+        <div class="map-list" id="mapList"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="js/data.js?v=20261105a"></script>
+<script src="js/app.js?v=20261105a"></script>
+<script src="js/explore.js?v=20261105a"></script>
+</body>
+</html>

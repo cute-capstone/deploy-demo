@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>主題行程｜玩竹一下</title>
+  <meta name="description" content="新竹一日慢旅行、老街文化散步、山海自然探索：三條主題行程，可打卡、加入我的旅程。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20261105b">
+  <link rel="stylesheet" href="css/pages.css?v=20261105b">
+</head>
+<body data-page="trips">
+<main>
+  <section class="ph-head">
+    <div class="wrap">
+      <p class="eyebrow">ITINERARY ／ 行程規劃</p>
+      <h1>幫今天的自己，安排一趟小旅行</h1>
+      <p>選一條路線，到了就打勾，每完成一站解鎖一張貼紙。時間僅為玩法示意。</p>
+    </div>
+  </section>
+  <section class="wrap" style="padding-bottom:96px">
+    <div class="trip-tabs" role="tablist" aria-label="主題行程" id="tabs"></div>
+    <div id="panel" role="tabpanel"></div>
+  </section>
+</main>
+<script src="js/data.js?v=20261105a"></script>
+<script src="js/app.js?v=20261105a"></script>
+<script>
+/* 主題行程：分頁切換（網址 #slow／#culture／#nature）、逐站打卡、整趟加入我的旅程 */
+(function () {
+  const $ = s => document.querySelector(s), IMG = WZ.IMG, S = WZ.state;
+  let cur = WZ.TRIPS.find(t => '#' + t.id === location.hash) ? location.hash.slice(1) : WZ.TRIPS[0].id;
+
+  function render() {
+    const t = WZ.TRIPS.find(x => x.id === cur);
+    $('#tabs').innerHTML = WZ.TRIPS.map(x => `<button class="chip ghost" type="button" role="tab" aria-selected="${x.id === cur}" data-t="${x.id}">${x.name}</button>`).join('');
+    const key = s => t.id + ':' + s.spot;
+    const n = t.stops.filter(s => S.done.includes(key(s))).length;
+    const saved = S.trips.includes(t.id);
+    $('#panel').innerHTML = `
+      <div class="trip-head">
+        <div>
+          <span class="pill ${t.color}">${t.kind}｜${t.fit}</span>
+          <h2>${t.name}</h2><p class="note" style="font-size:17px">${t.desc}</p>
+          <p class="trip-prog">完成 ${n} / ${t.stops.length} 站</p>
+          <div class="progress" style="max-width:360px"><i><b style="width:${n / t.stops.length * 100}%"></b></i></div>
+          <p style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn ${saved ? '' : 'primary'}" type="button" id="save">${saved ? '已加入我的旅程 ✓' : '整趟加入我的旅程'}</button>
+            <a class="btn" href="mytrip.html">看我的旅程 →</a></p>
+        </div>
+        <figure class="polaroid tape" style="--ar:16/10"><img src="${IMG(t.img)}" alt="${t.name}"></figure>
+      </div>
+      <ol class="timeline">${t.stops.map(s => { const sp = WZ.spot(s.spot), d = S.done.includes(key(s)); return `
+        <li class="stop ${d ? 'done' : ''}"><span class="stop-time">${s.t}</span>
+          <article class="card"><div class="ph"><img src="${IMG(sp.img)}" alt="${sp.name}" loading="lazy"></div>
+            <div class="txt"><p class="meta">${WZ.ICON.pin}${sp.area}</p><h3 style="font-size:20px">${sp.name}</h3><p>${s.note}</p>
+              <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+                <label class="check"><input type="checkbox" data-done="${key(s)}" ${d ? 'checked' : ''}>到此一遊，打卡！</label>
+                <button class="btn sm" type="button" data-open-spot="${sp.id}" style="position:relative;z-index:2">看介紹</button></div></div></article></li>`; }).join('')}</ol>`;
+  }
+
+  $('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-t]'); if (!b) return; cur = b.dataset.t; history.replaceState(null, '', '#' + cur); render(); });
+  $('#panel').addEventListener('change', e => {
+    const k = e.target.dataset.done; if (!k) return;
+    S.done = e.target.checked ? [...S.done, k] : S.done.filter(x => x !== k); WZ.save();
+    if (e.target.checked) WZ.toast('打卡成功，解鎖一張貼紙！');
+    render();
+  });
+  $('#panel').addEventListener('click', e => {
+    if (e.target.id !== 'save') return;
+    const on = !S.trips.includes(cur);
+    S.trips = on ? [...S.trips, cur] : S.trips.filter(x => x !== cur); WZ.save();
+    WZ.toast(on ? '已加入我的旅程' : '已從我的旅程移除'); render();
+  });
+  window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (WZ.TRIPS.some(t => t.id === h)) { cur = h; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>
